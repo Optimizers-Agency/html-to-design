@@ -1,3 +1,41 @@
-<!doctype html><html lang="en"><meta charset="utf-8"><title>Pagecraft test page</title><style>
-*{box-sizing:border-box}body{margin:0;font:18px Arial;background:#f2f3ed;color:#203326}header{padding:28px 40px;background:#193b2e;color:white}main{max-width:960px;margin:32px auto}.grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}.card{padding:28px;background:white;border:2px solid #a3c290;border-radius:24px}h1{font-size:42px}p{line-height:1.5}.clip{height:60px;overflow:hidden;background:#d9efc6}.overflow{height:140px}.spacer{height:800px}img{width:100px;height:100px;object-fit:contain}.hidden{display:none}.pseudo::before{content:'Before';color:red}.circle{width:70px;height:70px;border-radius:50%;background:#e99264}svg{color:#758b50}
-</style><header>PAGECRAFT / TEST FIXTURE</header><main id="main"><h1>A page worth keeping.</h1><div class="grid"><section class="card"><h2>Editable text</h2><p id="wrapped">This paragraph wraps onto several lines and includes <b>bold words</b> plus an <span style="color:#c34d26">orange accent</span>.</p><p dir="rtl" lang="ar">مرحبا بالعالم — تصميم قابل للتعديل</p><div class="circle"></div></section><section class="card"><h2>Images & vectors</h2><img alt="embedded pixel" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aF9sAAAAASUVORK5CYII="><svg width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="currentColor"/><path d="M30 50L45 65L72 35" fill="none" stroke="white" stroke-width="7"/></svg><div class="clip"><div class="overflow">Clipped content<br>Second line<br>Third line<br>Fourth line</div></div></section></div><p class="hidden">SHOULD NOT EXPORT</p><p class="pseudo">Pseudo warning</p><input value="PRIVATE FORM VALUE"><div class="spacer"></div><footer>End of full-page capture</footer></main></html>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Pagecraft test page</title><style>
+*{box-sizing:border-box}body{margin:0;font:18px Arial;background:#f2f3ed;color:#203326}
+header{padding:28px 40px;background:linear-gradient(90deg,#193b2e,#2f7d5b);color:white;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:5}
+nav a{color:#d7fda8;margin-left:18px;text-decoration:none}nav a:hover{text-decoration:underline}
+main{max-width:960px;margin:32px auto}.grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.card{padding:28px;background:white;border:2px solid #a3c290;border-radius:24px;box-shadow:0 12px 30px rgba(25,59,46,.18),0 2px 4px rgba(0,0,0,.08);position:relative}
+h1{font-size:42px;letter-spacing:-1px}p{line-height:1.5}
+.clip{height:60px;overflow:hidden;background:#d9efc6;border-radius:8px 24px 8px 24px}.overflow{height:140px;padding:8px}
+.spacer{height:700px;background:radial-gradient(circle at 30% 30%,#fff,#c9dbb7)}
+.photo{width:160px;height:100px;object-fit:cover;border-radius:12px}.contain{width:160px;height:100px;object-fit:contain;background:#eee}
+.hidden{display:none}.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.pseudo::before{content:'★ ';color:#c34d26}.badge{display:inline-block;background:#193b2e;color:#fff;border-radius:99px;padding:2px 12px;font-size:13px}
+.ribbon::after{content:'NEW';position:absolute;top:14px;right:14px;background:#c34d26;color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px}
+.circle{width:70px;height:70px;border-radius:50%;background:#e99264;border-bottom:6px solid #7c3d1c}
+.bg{height:90px;background:#234 url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAECAIAAAA8r+mnAAAASUlEQVR4nBXKQREAQQgEsZaCFCQgASkrZaQgBQk4mKvLOwCBExo/EB5YDOUostzFK6uY8hb/CTlFy09IHrEynOPIcx/vrGPOe3xOPSzxwZaHKQAAAABJRU5ErkJggg==") center/contain no-repeat;border-radius:10px}
+svg{color:#758b50}.upper{text-transform:uppercase;letter-spacing:2px;font-size:12px}
+input,textarea,select{font:16px Arial;padding:10px 12px;border:1px solid #9aa;border-radius:8px;width:220px}
+.gradient-text{background:linear-gradient(90deg,#c34d26,#7a2bd6);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:700;font-size:28px}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><defs><symbol id="icon-check" viewBox="0 0 24 24"><path d="M4 12l5 5L20 6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></symbol><linearGradient id="shared-grad"><stop offset="0" stop-color="#f90"/><stop offset="1" stop-color="#f09"/></linearGradient></defs></svg>
+<header><strong>PAGECRAFT / TEST FIXTURE</strong><nav><a href="#">Features</a><a href="#">Pricing</a><a href="#">Contact</a></nav></header>
+<main id="main"><h1>A page worth keeping.</h1><p class="upper">Section label</p>
+<div class="grid">
+<section class="card ribbon"><h2>Editable text</h2>
+<p id="wrapped">This paragraph wraps onto several lines and includes <b>bold words</b>, a <a href="#">link</a>, <i>italics</i> plus an <span style="color:#c34d26">orange accent</span> so mixed styles stay in one layer.</p>
+<p dir="rtl" lang="ar">مَرْحَبًا بالعالم — تصميم قابل للتعديل. هذا سطر عربي طويل يلتف على أكثر من سطر واحد لاختبار المحاذاة من اليمين إلى اليسار.</p>
+<p>Status <span class="badge">Active</span> and <span class="sr">SCREEN READER ONLY</span>done.</p>
+<ul><li>First bullet</li><li>Second bullet</li></ul><ol start="3"><li>Third step</li><li>Fourth step</li></ol>
+<div class="circle"></div><p class="gradient-text">Gradient headline</p></section>
+<section class="card"><h2>Images &amp; vectors</h2>
+<img class="photo" alt="cover photo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAECAIAAAA8r+mnAAAASUlEQVR4nBXKQREAQQgEsZaCFCQgASkrZaQgBQk4mKvLOwCBExo/EB5YDOUostzFK6uY8hb/CTlFy09IHrEynOPIcx/vrGPOe3xOPSzxwZaHKQAAAABJRU5ErkJggg==">
+<img class="contain" alt="logo vector" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cstyle%3E.a%7Bfill:%232f7d5b%7D%3C/style%3E%3Ccircle class='a' cx='20' cy='20' r='18'/%3E%3Cpath d='M12 20l6 6 10-12' fill='none' stroke='%23fff' stroke-width='4'/%3E%3C/svg%3E">
+<p><svg width="64" height="64" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="currentColor"/><path d="M30 50L45 65L72 35" fill="none" stroke="white" stroke-width="7"/></svg>
+<svg width="40" height="40" style="color:#c34d26"><use href="#icon-check" width="40" height="40"/></svg>
+<svg width="64" height="40" viewBox="0 0 64 40"><rect width="64" height="40" rx="8" fill="url(#shared-grad)"/></svg></p>
+<div class="bg"></div>
+<div class="clip"><div class="overflow">Clipped content<br>Second line<br>Third line<br>Fourth line</div></div></section>
+</div>
+<p class="hidden">SHOULD NOT EXPORT</p><p class="pseudo">Pseudo element text</p>
+<p><input placeholder="Your email address"> <input value="Typed value"> <select><option>Choose plan</option></select> <input type="checkbox" checked> <input type="password" value="secret12"></p>
+<div class="spacer"></div><footer style="padding:30px;text-align:center;border-top:1px dashed #789">End of full-page capture · <a href="#">Back to top</a></footer></main></body></html>

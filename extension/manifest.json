@@ -1,10 +1,12 @@
 {
   "manifest_version": 3,
-  "name": "Pagecraft Local — Web to Design",
-  "description": "Capture webpages as editable design layers. Local exports, no account or usage quota.",
-  "version": "1.0.0",
-  "permissions": ["activeTab", "scripting"],
-  "optional_host_permissions": ["http://*/*", "https://*/*"],
-  "action": { "default_title": "Capture with Pagecraft Local" },
+  "name": "Layerlift by Optimizers — Web to Figma",
+  "short_name": "Layerlift",
+  "description": "Lift any webpage into Figma as editable layers. Paste straight onto the canvas. Local, no account, no quota.",
+  "version": "2.1.0",
+  "icons": { "16": "icons/icon-16.png", "32": "icons/icon-32.png", "48": "icons/icon-48.png", "128": "icons/icon-128.png" },
+  "permissions": ["scripting", "activeTab", "clipboardWrite"],
+  "host_permissions": ["<all_urls>"],
+  "action": { "default_title": "Lift this page into Figma", "default_icon": { "16": "icons/icon-16.png", "32": "icons/icon-32.png", "48": "icons/icon-48.png" } },
   "background": { "service_worker": "background.js" }
 }

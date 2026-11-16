@@ -1,6 +1,32 @@
 <!doctype html><html><head><meta charset="utf-8"><style>
-*{box-sizing:border-box}body{font:13px Inter,Arial,sans-serif;color:#28392b;background:#f7f9f2;margin:0;padding:28px}small{letter-spacing:2px;font-size:10px;color:#7a8c6c}h1{font-size:25px;letter-spacing:-.7px;margin:10px 0}p{line-height:1.7;color:#74806b}.drop{display:block;border:1px dashed #a9be94;border-radius:12px;padding:30px 15px;text-align:center;background:white;margin-top:24px;cursor:pointer}.drop:hover{background:#eef7e5}input{display:block;width:100%;margin-top:16px;font-size:11px}#status{margin:18px 0;font-size:12px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere;max-height:180px;overflow:auto}.foot{font-size:10px;border-top:1px solid #e0e8d8;padding-top:16px}button{background:#d1f59b;color:#28392b;border:0;padding:12px;border-radius:8px;width:100%;font-weight:600;cursor:pointer}button:disabled{opacity:.5}
-</style></head><body><small>PAGECRAFT / LOCAL IMPORT</small><h1>From page to canvas.</h1><p>Import a capture as editable Figma layers, including text, images and vectors.</p><label class="drop" id="drop">Drop a <b>.pagecraft.json</b> file here<input id="file" type="file" accept=".json,.pagecraft.json"></label><div id="status" role="status">Choose a capture to begin.</div><button id="cancel" hidden>Cancel import</button><p class="foot">No account. No import quota. Files stay local to the plugin; imported layers become part of your Figma document.</p><script>
+/* Optimizers brand tokens; follows Figma's own light/dark setting, dark by default. */
+html{--accent:#6ae499;--accent-dark:#3db870;--bg:#0e1c26;--card:#162535;--text:#f0f6f9;--muted:#a8c0ce;--faint:#7e99a8;--border:rgba(106,228,153,.16);--hover:rgba(106,228,153,.4)}
+html.figma-light{--bg:#f0f4f8;--card:#ffffff;--text:#0e1c26;--muted:#33566e;--faint:#5d7c8c;--border:rgba(0,0,0,.12);--hover:rgba(61,184,112,.6)}
+*{box-sizing:border-box}
+body{font:13px/1.5 Inter,"Segoe UI",Arial,sans-serif;color:var(--text);background:var(--bg);margin:0;padding:24px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand svg{width:34px;height:34px;flex:none}
+.brand b{font:700 17px Sora,Inter,"Segoe UI",sans-serif;letter-spacing:-.3px;display:block;line-height:1.1}
+.brand span{font-size:11px;color:var(--faint)}
+p{color:var(--muted);margin:16px 0 0}
+.drop{display:block;border:1px dashed var(--hover);border-radius:20px;padding:26px 16px;text-align:center;background:var(--card);margin-top:18px;cursor:pointer;transition:border-color .2s}
+.drop:hover{border-color:var(--accent)}
+.drop b{color:var(--accent)}
+html.figma-light .drop b{color:#1f7a45}
+input{display:block;width:100%;margin-top:14px;font-size:11px;color:var(--muted)}
+#status{margin:16px 0;font-size:12px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere;max-height:170px;overflow:auto;color:var(--muted)}
+.foot{font-size:10.5px;border-top:1px solid var(--border);padding-top:14px;color:var(--faint)}
+button{background:var(--accent);color:#080f14;border:0;padding:12px;border-radius:14px;width:100%;font:600 13px Sora,Inter,sans-serif;cursor:pointer}
+button:hover{background:var(--accent-dark)}button:disabled{opacity:.5}
+button:focus-visible,.drop:focus-within{outline:2px solid var(--accent);outline-offset:2px}
+</style></head><body>
+<div class="brand"><svg viewBox="0 0 128 128" aria-hidden="true"><rect width="128" height="128" rx="30" fill="#0e1c26"/><path d="M64 24 106 46 64 68 22 46Z" fill="#6ae499"/><path d="M26 66 64 86l38-20" fill="none" stroke="#6ae499" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" opacity=".7"/><path d="M26 86 64 106l38-20" fill="none" stroke="#6ae499" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" opacity=".38"/></svg><div><b>Layerlift Import</b><span>by Optimizers</span></div></div>
+<p>Rebuilds a Layerlift capture as frames, wrapping text, images and vectors.</p>
+<label class="drop" id="drop">Drop a <b>.layerlift.json</b> file here<input id="file" type="file" accept=".json"></label>
+<div id="status" role="status">Choose a capture to begin.</div>
+<button id="cancel" hidden>Cancel import</button>
+<p class="foot">No account, no quota. The file stays on this computer; imported layers become part of your Figma document.</p>
+<script>
 const file = document.getElementById('file'), drop = document.getElementById('drop'), status = document.getElementById('status'), cancel = document.getElementById('cancel');
 let busy = false;
 async function load(selected) {
@@ -8,7 +34,7 @@ async function load(selected) {
   busy = true; file.disabled = true; status.textContent = 'Reading capture…';
   try {
     const data = JSON.parse(await selected.text());
-    if (data.format !== 'pagecraft' || data.version !== 1) throw new Error('Choose a Pagecraft version 1 capture.');
+    if (data.format !== 'pagecraft') throw new Error('Choose a .layerlift.json file made by the Layerlift extension.');
     cancel.hidden = false;
     parent.postMessage({ pluginMessage: { type: 'import', data } }, '*');
   } catch (error) { status.textContent = error.message; busy = false; file.disabled = false; }
