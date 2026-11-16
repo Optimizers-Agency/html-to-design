@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+*{box-sizing:border-box}body{font:13px Inter,Arial,sans-serif;color:#28392b;background:#f7f9f2;margin:0;padding:28px}small{letter-spacing:2px;font-size:10px;color:#7a8c6c}h1{font-size:25px;letter-spacing:-.7px;margin:10px 0}p{line-height:1.7;color:#74806b}.drop{display:block;border:1px dashed #a9be94;border-radius:12px;padding:30px 15px;text-align:center;background:white;margin-top:24px;cursor:pointer}.drop:hover{background:#eef7e5}input{display:block;width:100%;margin-top:16px;font-size:11px}#status{margin:18px 0;font-size:12px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere;max-height:180px;overflow:auto}.foot{font-size:10px;border-top:1px solid #e0e8d8;padding-top:16px}button{background:#d1f59b;color:#28392b;border:0;padding:12px;border-radius:8px;width:100%;font-weight:600;cursor:pointer}button:disabled{opacity:.5}
+</style></head><body><small>PAGECRAFT / LOCAL IMPORT</small><h1>From page to canvas.</h1><p>Import a capture as editable Figma layers, including text, images and vectors.</p><label class="drop" id="drop">Drop a <b>.pagecraft.json</b> file here<input id="file" type="file" accept=".json,.pagecraft.json"></label><div id="status" role="status">Choose a capture to begin.</div><button id="cancel" hidden>Cancel import</button><p class="foot">No account. No import quota. Files stay local to the plugin; imported layers become part of your Figma document.</p><script>
+const file = document.getElementById('file'), drop = document.getElementById('drop'), status = document.getElementById('status'), cancel = document.getElementById('cancel');
+let busy = false;
+async function load(selected) {
+  if (!selected || busy) return;
+  busy = true; file.disabled = true; status.textContent = 'Reading capture…';
+  try {
+    const data = JSON.parse(await selected.text());
+    if (data.format !== 'pagecraft' || data.version !== 1) throw new Error('Choose a Pagecraft version 1 capture.');
+    cancel.hidden = false;
+    parent.postMessage({ pluginMessage: { type: 'import', data } }, '*');
+  } catch (error) { status.textContent = error.message; busy = false; file.disabled = false; }
+}
+file.onchange = () => load(file.files[0]);
+drop.ondragover = e => { e.preventDefault(); };
+drop.ondrop = e => { e.preventDefault(); load(e.dataTransfer.files[0]); };
+cancel.onclick = () => { cancel.disabled = true; parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*'); };
+onmessage = event => {
+  const message = event.data.pluginMessage; if (!message) return;
+  status.textContent = message.message;
+  if (message.type === 'done' || message.type === 'error') { busy = false; file.disabled = false; file.value = ''; cancel.hidden = true; cancel.disabled = false; }
+};
+</script></body></html>

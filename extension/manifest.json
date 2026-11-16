@@ -1,0 +1,10 @@
+{
+  "manifest_version": 3,
+  "name": "Pagecraft Local — Web to Design",
+  "description": "Capture webpages as editable design layers. Local exports, no account or usage quota.",
+  "version": "1.0.0",
+  "permissions": ["activeTab", "scripting"],
+  "optional_host_permissions": ["http://*/*", "https://*/*"],
+  "action": { "default_title": "Capture with Pagecraft Local" },
+  "background": { "service_worker": "background.js" }
+}
